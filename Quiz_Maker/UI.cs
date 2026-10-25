@@ -6,6 +6,57 @@ namespace Quiz_Maker
 {
     internal class UI
     {
+        static public bool CheckFileOverwrite()
+        {
+            bool validUserInput;
+            char userInput;
+            Console.Write("Do you want to overwrite the existing questions data base? yes [y] no");
+            while (true)
+            {
+                validUserInput = char.TryParse(Console.ReadLine()!.ToLower(), out userInput) && (userInput == 'y' || userInput == 'n');
+                if (validUserInput) break;
+                else
+                {
+                    Console.WriteLine("For a valid answer, Please enter [y] for Yes or [n] for No.");
+                    Console.WriteLine();
+                }
+            }
+            if (userInput == 'y') return true;
+            else return false;
+
+        }
+
+        static public void PrintErrors(int error)
+        {
+            switch (error)
+            {
+                case Constants.NO_QUESTIONS_FOUND:
+                    {
+                        Console.WriteLine("In the specified path, no file was found");
+                        Console.WriteLine();
+                        break;
+                    }
+            }
+        }
+
+
+        static public int GetUserMode(int playMode, int inputMode)
+        {
+            bool validUserInput;
+            int userMode;
+            Console.Write($"Please choose user mode. Enter {playMode} if you want to play or {inputMode} if you want to create questions: ");
+            while (true)
+            {
+                validUserInput = int.TryParse(Console.ReadLine(), out userMode) && (userMode == inputMode || userMode == playMode);
+                if (validUserInput) break;
+                else
+                {
+                    Console.WriteLine($"Please enter {playMode} if you want to play or {inputMode} if you want to create questions: ");
+                }
+            }
+            return userMode;
+        }
+
         /// <summary>
         /// Checks whether the user wants to keep inputting questions
         /// </summary>
@@ -41,7 +92,7 @@ namespace Quiz_Maker
                 foreach (var answer in question.answers)
                 {
                     cnt++;
-                    Console.WriteLine($"{cnt}. {answer.Key}");
+                    Console.WriteLine($"{cnt}. {answer.Key} || {answer.Value}");
                 }
                 Console.WriteLine();
                 Console.WriteLine();

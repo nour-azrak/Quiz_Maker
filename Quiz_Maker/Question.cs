@@ -4,10 +4,10 @@ using System.Text;
 
 namespace Quiz_Maker
 {
-    internal class Question
+    public class Question
     {
-        public string questionBody = "";
+        public string questionBody { get; set; } = "";
 
-        public Dictionary<string, bool> answers = new Dictionary<string, bool>();
+        public Dictionary<string, bool> answers { get; set; } = new Dictionary<string, bool>();
     }
 }
