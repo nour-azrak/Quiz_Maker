@@ -7,11 +7,15 @@ namespace Quiz_Maker
     internal class Logic
     {
         static Random random = new Random();
-        static public int ChooseRandomQuestion (int SizeOfQuestionList)
+        static public List<int> ChooseRandomQuestion (int SizeOfQuestionList)
         {
-            int number = random.Next(1, SizeOfQuestionList+1);
+            // creates uniq
+            List<int> numbers = Enumerable.Range(0, SizeOfQuestionList)
+                .OrderBy(x => random.Next())
+                .Take(10)
+                .ToList();
 
-            return number;
+            return numbers;
         }
 
         //static public void Track

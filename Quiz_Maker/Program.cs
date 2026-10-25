@@ -15,17 +15,23 @@ namespace Quiz_Maker
             // create list of questions
             List<Question>? listOfQuestions = new List<Question>();
 
-            // random question number
-            int randomQuestion;
-
-            // check if user wants to overwrite existing data base
-            bool overwriteDatabase;
+            // random question index list
+            List<int> randomQuestion = new List<int>();
 
             // deserialize json string and put in object list
             var path = @"Questions.json";
-            string json = File.ReadAllText(path);
-
+            string json = "";
+            try
+            {
+                json = File.ReadAllText(path);
             listOfQuestions = JsonSerializer.Deserialize<List<Question>>(json);
+
+            }
+            catch (FileNotFoundException)
+            {
+                listOfQuestions = null;
+            }
+
 
             if (listOfQuestions == null)
             {
@@ -38,21 +44,40 @@ namespace Quiz_Maker
             {
                 case Constants.PLAY_MODE:
                     {
+                        // create a unique random index to each question in the list
+                        randomQuestion = Logic.ChooseRandomQuestion(listOfQuestions.Count);
+
+                        for (int i = 0; i < listOfQuestions.Count; i++)
+                        {
+                            // display random question
+                            UI.PrintQuestionFromList(listOfQuestions, randomQuestion[i]);
+
+                            // Ask for answer
+
+                            // check correctness of answer
+
+                            // add points for correct answers
+                        }
+
 
                         break;
                     }
 
                 case Constants.INPUT_MODE:
                     {
-                    // check whether the user wants to overwrite the existing file
+                        // check whether the user wants to overwrite the existing file
                         if (listOfQuestions != null)
                         {
                             if (UI.CheckFileOverwrite())
                             {
                                 listOfQuestions.Clear();
                             }
+                            else
+                            {
+                                UI.PrintListofQuestions(listOfQuestions);
+                            }
                         }
-
+                        listOfQuestions = new List<Question>();
                         bool firstLoop = true;
                         // Get Questions
                         while (UI.UserWantsToInputNextQuestion(firstLoop))
@@ -76,6 +101,7 @@ namespace Quiz_Maker
                         break;
                     }
             }
+            
         }
     }
 }

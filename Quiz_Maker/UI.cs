@@ -1,11 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
 
 namespace Quiz_Maker
 {
     internal class UI
     {
+        static public void AskForAnswer()
+            {
+                
+            }
+
+        static public void PrintQuestionFromList(List<Question> listOfQuestions, int questionIndex)
+        {
+            int cnt = 0;
+            Console.WriteLine($"{listOfQuestions[questionIndex].questionBody}");
+            foreach (var answer in listOfQuestions[questionIndex].answers)
+            {
+                cnt++;
+                Console.WriteLine($"{cnt}. {answer.answer}");
+            }
+            Console.WriteLine();
+        }
+
         static public bool CheckFileOverwrite()
         {
             bool validUserInput;
@@ -85,6 +103,7 @@ namespace Quiz_Maker
         static public void PrintListofQuestions(List<Question> listOfQuestions)
         {
             int cnt;
+            Console.WriteLine("Current list of questions:");
             foreach (Question question in listOfQuestions)
             {
                 cnt = 0;
@@ -92,7 +111,7 @@ namespace Quiz_Maker
                 foreach (var answer in question.answers)
                 {
                     cnt++;
-                    Console.WriteLine($"{cnt}. {answer.Key} || {answer.Value}");
+                    Console.WriteLine($"{cnt}. {answer.answer} || {answer.correctness}");
                 }
                 Console.WriteLine();
                 Console.WriteLine();
@@ -136,8 +155,7 @@ namespace Quiz_Maker
                 if (inputCorrectness == 'y') answerIsCorrect = true;
                 else answerIsCorrect = false;
 
-                inputQuestion.answers.Add(inputString, answerIsCorrect);
-
+                inputQuestion.answers.Add((inputString, answerIsCorrect));
             }
         }
     }

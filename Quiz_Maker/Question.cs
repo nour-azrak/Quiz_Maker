@@ -8,6 +8,6 @@ namespace Quiz_Maker
     {
         public string questionBody { get; set; } = "";
 
-        public Dictionary<string, bool> answers { get; set; } = new Dictionary<string, bool>();
+        public List<Answer> answers { get; set; } = new List<Answer>();
     }
 }
