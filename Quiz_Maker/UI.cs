@@ -7,10 +7,34 @@ namespace Quiz_Maker
 {
     internal class UI
     {
-        static public void AskForAnswer()
+        static public void DisplayAnswerMessage(bool correctAnswer)
+        {
+            if (correctAnswer)
             {
-                
+                Console.WriteLine("Congrats. You answered correctly");
             }
+            else
+            {
+                Console.WriteLine("Sorry. Wrong answer");
+            }
+        }
+        static public int AskForAnswer(int maxAnswerNumber)
+        {
+            int answer;
+            bool validUserInput;
+            Console.Write("Please provide your answer: ");
+            while(true)
+            {
+                validUserInput = int.TryParse(Console.ReadLine(), out answer) && answer > 0 && answer <= maxAnswerNumber;
+                if (validUserInput) break;
+                else
+                {
+                    Console.WriteLine($"Please enter a single digit number above zero and smaller than {maxAnswerNumber+1}");
+
+                }
+            }
+            return answer;
+        }
 
         static public void PrintQuestionFromList(List<Question> listOfQuestions, int questionIndex)
         {
@@ -28,7 +52,7 @@ namespace Quiz_Maker
         {
             bool validUserInput;
             char userInput;
-            Console.Write("Do you want to overwrite the existing questions data base? yes [y] no");
+            Console.Write("Do you want to overwrite the existing questions data base? yes [y] no [n]: ");
             while (true)
             {
                 validUserInput = char.TryParse(Console.ReadLine()!.ToLower(), out userInput) && (userInput == 'y' || userInput == 'n');
@@ -121,7 +145,7 @@ namespace Quiz_Maker
         {
             inputQuestion = new Question();
             string inputString = string.Empty;
-            bool answerIsCorrect;
+            bool correctness;
             bool validUserInput;
             char inputCorrectness;
 
@@ -152,10 +176,14 @@ namespace Quiz_Maker
                     }
                 }
 
-                if (inputCorrectness == 'y') answerIsCorrect = true;
-                else answerIsCorrect = false;
+                if (inputCorrectness == 'y') correctness = true;
+                else correctness = false;
 
-                inputQuestion.answers.Add((inputString, answerIsCorrect));
+                inputQuestion.answers.Add(new Answer
+                {
+                    answer = inputString,
+                    correctness = correctness
+                });
             }
         }
     }

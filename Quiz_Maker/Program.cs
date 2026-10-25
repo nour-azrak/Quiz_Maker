@@ -12,6 +12,9 @@ namespace Quiz_Maker
             // count correctly answered questions
             int cnt = 0;
 
+            // store answer from user
+            int answer;
+
             // create list of questions
             List<Question>? listOfQuestions = new List<Question>();
 
@@ -24,7 +27,7 @@ namespace Quiz_Maker
             try
             {
                 json = File.ReadAllText(path);
-            listOfQuestions = JsonSerializer.Deserialize<List<Question>>(json);
+                listOfQuestions = JsonSerializer.Deserialize<List<Question>>(json);
 
             }
             catch (FileNotFoundException)
@@ -53,13 +56,23 @@ namespace Quiz_Maker
                             UI.PrintQuestionFromList(listOfQuestions, randomQuestion[i]);
 
                             // Ask for answer
+                            answer = UI.AskForAnswer(Constants.NUMBER_OF_ANSWERS);
 
                             // check correctness of answer
+                            if (listOfQuestions[randomQuestion[i]].answers[answer-1].correctness == true)
+                            {
+                                // display correct answer message
+                                UI.DisplayAnswerMessage(listOfQuestions[randomQuestion[i]].answers[answer-1].correctness);
 
-                            // add points for correct answers
+                                // add points for correct answers
+                                cnt++;
+                            }
+                            else
+                            {
+                                // display wrong answer message
+                                UI.DisplayAnswerMessage(listOfQuestions[randomQuestion[i]].answers[answer].correctness);
+                            }
                         }
-
-
                         break;
                     }
 
@@ -77,7 +90,10 @@ namespace Quiz_Maker
                                 UI.PrintListofQuestions(listOfQuestions);
                             }
                         }
-                        listOfQuestions = new List<Question>();
+                        else
+                        {
+                            listOfQuestions = new List<Question>();
+                        }
                         bool firstLoop = true;
                         // Get Questions
                         while (UI.UserWantsToInputNextQuestion(firstLoop))
@@ -90,6 +106,9 @@ namespace Quiz_Maker
                             Console.WriteLine();
                             Console.WriteLine($"Size of list is {listOfQuestions.Count}");
 
+                            //debug
+                            UI.PrintListofQuestions(listOfQuestions);
+
 
                         }
                         // serialize the question list. WrtieIndent = true to increase readability
@@ -101,7 +120,7 @@ namespace Quiz_Maker
                         break;
                     }
             }
-            
+
         }
     }
 }
