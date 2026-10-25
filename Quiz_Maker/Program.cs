@@ -13,13 +13,17 @@ namespace Quiz_Maker
             int cnt = 0;
 
             // store answer from user
-            int answer;
+            List<int> answer;
+            bool multipleCorrectAnswers;
+            bool correctAnswer;
 
             // create list of questions
             List<Question>? listOfQuestions = new List<Question>();
 
             // random question index list
             List<int> randomQuestion = new List<int>();
+
+            // print welcome message
 
             // deserialize json string and put in object list
             var path = @"Questions.json";
@@ -52,17 +56,21 @@ namespace Quiz_Maker
 
                         for (int i = 0; i < listOfQuestions.Count; i++)
                         {
-                            // display random question
-                            UI.PrintQuestionFromList(listOfQuestions, randomQuestion[i]);
+                            // check if question has multiple answers
+                            multipleCorrectAnswers = Logic.CheckMultipleCorrectAnswers(listOfQuestions[randomQuestion[i]], out int countCorrectAnswers);
 
-                            // Ask for answer
-                            answer = UI.AskForAnswer(Constants.NUMBER_OF_ANSWERS);
+                            // display random question
+                            UI.PrintQuestionFromList(listOfQuestions, randomQuestion[i], multipleCorrectAnswers);
+
+                            // Ask for list of answers
+                            answer = UI.AskForAnswer(Constants.NUMBER_OF_ANSWERS, countCorrectAnswers);
 
                             // check correctness of answer
-                            if (listOfQuestions[randomQuestion[i]].answers[answer-1].correctness == true)
+                            correctAnswer = Logic.CheckUserWin(listOfQuestions[randomQuestion[i]], answer);
+                            if (correctAnswer)
                             {
                                 // display correct answer message
-                                UI.DisplayAnswerMessage(listOfQuestions[randomQuestion[i]].answers[answer-1].correctness);
+                                UI.DisplayAnswerMessage(correctAnswer);
 
                                 // add points for correct answers
                                 cnt++;
@@ -70,9 +78,11 @@ namespace Quiz_Maker
                             else
                             {
                                 // display wrong answer message
-                                UI.DisplayAnswerMessage(listOfQuestions[randomQuestion[i]].answers[answer].correctness);
+                                UI.DisplayAnswerMessage(correctAnswer);
                             }
+                            UI.PrintScore(cnt);
                         }
+                        // print goodby message
                         break;
                     }
 
