@@ -102,9 +102,6 @@ namespace Quiz_Maker
                             UI.GetQuestion(out newQuestion, 4);
                             listOfQuestions.Add(newQuestion);
 
-                            Console.WriteLine();
-                            Console.WriteLine($"Size of list is {listOfQuestions.Count}");
-
                             //debug
                             UI.PrintListofQuestions(listOfQuestions);
 
