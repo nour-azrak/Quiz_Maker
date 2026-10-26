@@ -7,7 +7,7 @@ namespace Quiz_Maker
         static void Main(string[] args)
         {
             // Get user mode
-            int userMode = UI.GetUserMode(Constants.PLAY_MODE, Constants.INPUT_MODE);
+            int userMode = UI.GetUserMode();
 
             // count correctly answered questions
             int cnt = 0;

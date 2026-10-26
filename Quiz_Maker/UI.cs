@@ -150,12 +150,12 @@ namespace Quiz_Maker
         }
 
 
-        static public int GetUserMode(int playMode, int inputMode)
+        static public int GetUserMode()
         {
             bool validUserInput;
             int userMode;
             Console.WriteLine();
-            Console.Write($"Please choose user mode. Enter {playMode} if you want to play or {inputMode} if you want to create questions: ");
+            Console.Write($"Please choose user mode. Enter {Constants.PLAY_MODE} if you want to play or {Constants.INPUT_MODE} if you want to create questions: ");
             while (true)
             {
                 validUserInput = int.TryParse(Console.ReadLine(), out userMode) && (userMode == inputMode || userMode == playMode);
