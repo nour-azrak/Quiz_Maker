@@ -58,14 +58,10 @@ namespace Quiz_Maker
                         answerUserInput.Add(answer);
                         break;
                     }
-                    else
-                    {
-                        Console.WriteLine($"Please enter a single digit number above zero and smaller than {maxAnswerNumber + 1}. Please make sure to not enter aleardy entered answers");
-                        Console.Write("Please provide your answer: ");
-
-                    }
+                    Console.WriteLine($"Please enter a single digit number above zero and smaller than {maxAnswerNumber + 1}. Please make sure to not enter aleardy entered answers");
+                    Console.Write("Please provide your answer: ");
                 }
-                if (CorrectAnswers == 1 || i == CorrectAnswers-1) break;
+                if (CorrectAnswers == 1 || i == CorrectAnswers - 1) break;
                 if (!UserWantsToInputNextAnswer()) break;
             }
             Console.WriteLine();
@@ -83,11 +79,9 @@ namespace Quiz_Maker
             {
                 validUserInput = char.TryParse(Console.ReadLine()!.ToLower(), out userInput) && (userInput == 'y' || userInput == 'n');
                 if (validUserInput) break;
-                else
-                {
-                    Console.WriteLine("For a valid answer, Please enter [y] for Yes or [n] for No.");
-                    Console.WriteLine();
-                }
+
+                Console.WriteLine("For a valid answer, Please enter [y] for Yes or [n] for No.");
+                Console.WriteLine();
             }
             Console.WriteLine();
             if (userInput == 'y') return true;
@@ -122,11 +116,9 @@ namespace Quiz_Maker
             {
                 validUserInput = char.TryParse(Console.ReadLine()!.ToLower(), out userInput) && (userInput == 'y' || userInput == 'n');
                 if (validUserInput) break;
-                else
-                {
-                    Console.WriteLine("For a valid answer, Please enter [y] for Yes or [n] for No.");
-                    Console.WriteLine();
-                }
+
+                Console.WriteLine("For a valid answer, Please enter [y] for Yes or [n] for No.");
+                Console.WriteLine();
             }
             Console.WriteLine();
             if (userInput == 'y') return true;
@@ -160,10 +152,8 @@ namespace Quiz_Maker
             {
                 validUserInput = int.TryParse(Console.ReadLine(), out userMode) && (userMode == Constants.PLAY_MODE || userMode == Constants.INPUT_MODE);
                 if (validUserInput) break;
-                else
-                {
-                    Console.WriteLine($"Please enter {Constants.PLAY_MODE} if you want to play or {Constants.INPUT_MODE} if you want to create questions: ");
-                }
+
+                Console.WriteLine($"Please enter {Constants.PLAY_MODE} if you want to play or {Constants.INPUT_MODE} if you want to create questions: ");
             }
             Console.WriteLine();
             return userMode;
@@ -185,11 +175,9 @@ namespace Quiz_Maker
             {
                 validUserInput = char.TryParse(Console.ReadLine()!.ToLower(), out userInput) && (userInput == 'y' || userInput == 'n');
                 if (validUserInput) break;
-                else
-                {
-                    Console.WriteLine("For a valid answer, Please enter [y] for Yes or [n] for No.");
-                    Console.WriteLine();
-                }
+
+                Console.WriteLine("For a valid answer, Please enter [y] for Yes or [n] for No.");
+                Console.WriteLine();
             }
             Console.WriteLine();
             if (userInput == 'y') return true;
@@ -244,11 +232,9 @@ namespace Quiz_Maker
                 {
                     validUserInput = char.TryParse(Console.ReadLine()!.ToLower(), out inputCorrectness) && (inputCorrectness == 'y' || inputCorrectness == 'n');
                     if (validUserInput) break;
-                    else
-                    {
-                        Console.WriteLine("For a valid answer, Please enter [y] for Yes or [n] for No.");
-                        Console.WriteLine();
-                    }
+
+                    Console.WriteLine("For a valid answer, Please enter [y] for Yes or [n] for No.");
+                    Console.WriteLine();
                 }
 
                 if (inputCorrectness == 'y') correctness = true;
