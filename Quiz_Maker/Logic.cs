@@ -7,6 +7,7 @@ namespace Quiz_Maker
 {
     internal class Logic
     {
+        static Random random { get; } = new Random();
         static public void SerializeQuestions(List<Question>? listOfQuestions)
         {
             string json;
@@ -85,7 +86,7 @@ namespace Quiz_Maker
             if (countCorrectAnswers > 1) return true;
             else return false;
         }
-        static Random random = new Random();
+        
         static public List<int> ChooseRandomQuestion(int SizeOfQuestionList)
         {
             // creates uniq
