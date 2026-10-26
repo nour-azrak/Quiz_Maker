@@ -25,18 +25,8 @@ namespace Quiz_Maker
 
             // print welcome message
 
-            // deserialize json string and put in object list
-            string json = "";
-            try
-            {
-                json = File.ReadAllText(Constants.DEFAULT_PATH);
-                listOfQuestions = JsonSerializer.Deserialize<List<Question>>(json);
-
-            }
-            catch (FileNotFoundException)
-            {
-                listOfQuestions = null;
-            }
+            // deserialize json string from default path and put in object list
+            listOfQuestions = Logic.DeserializeQuestions();
 
 
             if (listOfQuestions == null)
@@ -120,12 +110,8 @@ namespace Quiz_Maker
 
 
                         }
-                        // serialize the question list. WrtieIndent = true to increase readability
-                        json = JsonSerializer.Serialize(listOfQuestions,
-                            new JsonSerializerOptions { WriteIndented = true });
-
-                        /// save the questions into a file
-                        File.WriteAllText(Constants.DEFAULT_PATH, json);
+                        // serialize the question list. 
+                        Logic.SerializeQuestions(listOfQuestions);
                         break;
                     }
             }

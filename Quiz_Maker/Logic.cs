@@ -1,11 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json;
 
 namespace Quiz_Maker
 {
     internal class Logic
     {
+        static public void SerializeQuestions(List<Question>? listOfQuestions)
+        {
+            string json;
+
+            // WrtieIndent = true to increase readability
+            json = JsonSerializer.Serialize(listOfQuestions,
+                            new JsonSerializerOptions { WriteIndented = true });
+            // save the questions into a file
+            File.WriteAllText(Constants.DEFAULT_PATH, json);
+        }
+        static public List<Question> DeserializeQuestions()
+        {
+            string json;
+            List<Question>? listOfQuestions = new List<Question>();
+            try
+            {
+                json = File.ReadAllText(Constants.DEFAULT_PATH);
+                listOfQuestions = JsonSerializer.Deserialize<List<Question>>(json);
+
+            }
+            catch (FileNotFoundException)
+            {
+                listOfQuestions = null;
+            }
+
+            return listOfQuestions;
+        }
+
         /// <summary>
         /// Checks if user has won
         /// </summary>
