@@ -158,11 +158,11 @@ namespace Quiz_Maker
             Console.Write($"Please choose user mode. Enter {Constants.PLAY_MODE} if you want to play or {Constants.INPUT_MODE} if you want to create questions: ");
             while (true)
             {
-                validUserInput = int.TryParse(Console.ReadLine(), out userMode) && (userMode == inputMode || userMode == playMode);
+                validUserInput = int.TryParse(Console.ReadLine(), out userMode) && (userMode == Constants.PLAY_MODE || userMode == Constants.INPUT_MODE);
                 if (validUserInput) break;
                 else
                 {
-                    Console.WriteLine($"Please enter {playMode} if you want to play or {inputMode} if you want to create questions: ");
+                    Console.WriteLine($"Please enter {Constants.PLAY_MODE} if you want to play or {Constants.INPUT_MODE} if you want to create questions: ");
                 }
             }
             Console.WriteLine();

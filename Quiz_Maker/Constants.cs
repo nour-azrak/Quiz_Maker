@@ -14,5 +14,8 @@ namespace Quiz_Maker
 
         // Error 1: no questions found when deserializing file in the specified path
         public const int NO_QUESTIONS_FOUND = 1;
+
+        // defalt path constant
+        public const string DEFAULT_PATH = @"Questions.json";
     }
 }

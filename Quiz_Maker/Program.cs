@@ -26,11 +26,10 @@ namespace Quiz_Maker
             // print welcome message
 
             // deserialize json string and put in object list
-            var path = @"Questions.json";
             string json = "";
             try
             {
-                json = File.ReadAllText(path);
+                json = File.ReadAllText(Constants.DEFAULT_PATH);
                 listOfQuestions = JsonSerializer.Deserialize<List<Question>>(json);
 
             }
@@ -126,7 +125,7 @@ namespace Quiz_Maker
                             new JsonSerializerOptions { WriteIndented = true });
 
                         /// save the questions into a file
-                        File.WriteAllText(path, json);
+                        File.WriteAllText(Constants.DEFAULT_PATH, json);
                         break;
                     }
             }
